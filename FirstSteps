@@ -1,0 +1,55 @@
+public class Welcome
+{
+	public static void main(String[] args)
+	{
+		Man[] people = new Man[3];
+		
+		people[0]=new Man("Pavel", 21, "12.01.1994");
+		people[1]=new Man("Maria", 22, "18.03.1993");
+		people[2]=new Man("Andrey", 23, "27.04.1992");
+
+		System.out.println("Количество зарегистрированных луноходов: "+Man.numofpeop());
+		for(Man e: people)
+		{
+			System.out.println("Имя: "+ e.getName() +", Возраст: "+ e.getAge() +", Дата рождения:"+ e.getBirth());
+		}
+	}
+}
+
+
+class Man
+{
+	private static int numberofman;
+	private String name;
+	private int age;
+	private String birthday;
+	
+	
+	public Man(String aName, int aAge, String aBirthday)
+	{
+		this.name=aName;
+		this.age=aAge;
+		this.birthday = aBirthday;
+		numberofman++;
+	}
+	
+	public String getName()
+	{
+	 return name;
+	}
+	
+	public int getAge()
+	{
+		return age;
+	}
+	
+	public String getBirth()
+	{
+		return birthday;
+	}
+	
+	public static int numofpeop()
+	{
+		return numberofman;
+	}
+}
