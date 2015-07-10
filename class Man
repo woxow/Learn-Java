@@ -1,0 +1,36 @@
+class Man
+{
+	private static int numberofman;
+	private String name;
+	private int age;
+	private String birthday;
+	
+	
+	public Man(String aName, int aAge, String aBirthday)
+	{
+		this.name=aName;
+		this.age=aAge;
+		this.birthday = aBirthday;
+		numberofman++;
+	}
+	
+	public String getName()
+	{
+	 return name;
+	}
+	
+	public int getAge()
+	{
+		return age;
+	}
+	
+	public String getBirth()
+	{
+		return birthday;
+	}
+	
+	public static int numofpeop()
+	{
+		return numberofman;
+	}
+}
