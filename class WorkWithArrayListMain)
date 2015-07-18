@@ -1,0 +1,73 @@
+import java.util.Scanner;
+
+public class WorkWithArrayList 
+{
+	public static void main(String[] args)
+	{
+		Boolean endOfWork=false;
+		Scanner in = new Scanner(System.in);
+		WWLists list1=new WWLists();
+		int numberOfCommand=0;				
+		
+		while(endOfWork!=true)
+		{	
+		list1.printList();
+		WWLists.printMenu();
+		String key=in.next();
+		if(key.equals("+")||key.equals("-"))
+		{
+			if(key.equals("+")) numberOfCommand=7;
+			if(key.equals("-")) numberOfCommand=8;
+		}
+		else
+		{	
+			try
+			{
+		numberOfCommand =Integer.parseInt(key);	
+			}
+			catch(Exception e)
+			{
+				
+			}
+		}
+		WWLists.clearconsole(9);
+		
+			switch(numberOfCommand)
+			{
+	
+			case 1:				
+				list1.setName(in);				
+				break;
+			case 2:
+				list1.fillList(in);
+				break;
+			case 3:
+				list1.addElement(in);
+				break;
+			case 4:
+				list1.deleteElement();
+				break;
+			case 5:
+				list1.changeElement(in);
+				break;
+			case 6:
+				System.exit(0);
+				break;
+			case 7:
+				WWLists.changeActive(1);
+				break;
+			case 8:
+				WWLists.changeActive(-1);
+				break;
+			default:
+				System.out.println("Enter a correct number, you, little bitch!");	
+				break;		
+			}
+			
+		}
+
+		in.close();	
+	}
+
+
+}
