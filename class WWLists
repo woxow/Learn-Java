@@ -1,0 +1,210 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class WWLists
+{
+	private static int numberOfElements=0;
+	private static int activeElementInList;
+	private Boolean isFill;
+	private String nameoflist;
+	private ArrayList<Man> people;
+	
+	
+	public WWLists()
+	{
+	this.isFill=false;
+	this.nameoflist="";
+	this.people=new ArrayList<Man>();
+	}
+	
+	public static void changeActive(int n)
+	{
+		activeElementInList+=n;
+		if(activeElementInList>numberOfElements-1) activeElementInList--;
+		if(activeElementInList<0) activeElementInList=0;
+	}
+	
+	public static void printMenu()
+	{
+		
+		String[] strs = {
+				"Please enter the number of command",
+				"1. Input Name of a list",
+				"2. Fill list",
+				"3. Add a new element",
+				"4. Delete selected element",
+				"5. Change selected element",
+				"6. Exit"
+				};
+
+		for(String s: strs )
+		{
+		System.out.println(s);	
+		}
+	}
+	
+	public static void clearconsole(int n)
+	{
+		for( int i=0;i<n;i++)
+		{
+			System.out.println("");
+		}
+	}
+	
+	public void printList()
+	{
+		if(this.isFill!=true) return;
+		//печать стрелочки на активный элемент
+		for(int i=0;i<activeElementInList+1;i++)
+		{
+			System.out.print("            ");
+		}
+		System.out.print("     V     \n");
+		//печать строки с именами крч		
+		System.out.print("|Name:     |");
+		for(int i=0;i<people.size();i++)
+		{
+			Man temp =people.get(i);
+			String name=temp.getName();
+			int begin=(11-name.length())/2;
+			for(int j=0;j<begin;j++)
+			{
+				System.out.print(" ");
+			}
+			System.out.print(name);
+			for(int j=0;j<11-(begin+name.length());j++)
+			{
+				System.out.print(" ");
+			}
+			System.out.print("|");
+		}
+		System.out.print("\n");
+//---------------------------------------------------------		
+	//печать строки с возрастом. она, как и строка с датой рождения аналогична строке с имнем
+		System.out.print("|Age:      |");
+		for(int i=0;i<people.size();i++)
+		{
+			Man temp =people.get(i);
+			int age=temp.getAge();
+			int begin=5;
+			if(age>=100) begin=4;
+			for(int j=0;j<begin;j++)
+			{
+				System.out.print(" ");
+			}
+			System.out.print(age);
+			if(age>=10) begin=6;
+			//if(age>=100) begin=6;
+			for(int j=0;j<11-(begin+1);j++)
+			{
+				System.out.print(" ");
+			}
+			System.out.print("|");
+		}
+		System.out.print("\n");
+//----------------------------------------------------		
+		System.out.print("|Birthday: |");
+		for(int i=0;i<people.size();i++)
+		{
+			Man temp =people.get(i);
+			String birth=temp.getBirth();
+			int begin=(11-birth.length())/2;
+			for(int j=0;j<begin;j++)
+			{
+				System.out.print(" ");
+			}
+			System.out.print(birth);
+			for(int j=0;j<11-(begin+birth.length());j++)
+			{
+				System.out.print(" ");
+			}
+			System.out.print("|");
+		}
+		System.out.print("\n");
+		//-----------------------------------------------------------------	
+		System.out.print("You can change active element by pressing "+"+ "+"or "+"-");
+		System.out.println("");
+	}
+	
+	public void setName(Scanner in)
+	{
+		
+		if(this.nameoflist!="") System.out.println("List already has a name. Try something else.");
+		else
+		{
+		System.out.println("Name of the list:");
+		String aName=in.next();
+		this.nameoflist=aName;
+		}
+	}
+	
+	public void fillList(Scanner scan)
+	{
+		if(isFill==true) System.out.println("List is already filled. You can add a new element if you wish");
+		else
+		{
+		
+		System.out.println("Input the number of elements");
+		int elem=scan.nextInt();
+		numberOfElements+=elem;
+		for(int i=0;i<elem;i++)
+		{
+			System.out.println("Name"+(i+1)+":");
+			String Name=scan.next();
+			System.out.println("Age"+(i+1)+":");
+			int Age=scan.nextInt();
+			System.out.println("Date of Birth"+(i+1)+":");
+			String Birthday=scan.next();
+			people.add(new Man(Name,Age,Birthday));
+			WWLists.clearconsole(9);
+		}
+		this.isFill=true;
+		activeElementInList=numberOfElements-1;
+		}
+	}
+	
+	public void addElement(Scanner scan)
+	{
+		System.out.println("Name:");
+		String Name=scan.next();
+		System.out.println("Age:");
+		int Age=scan.nextInt();
+		System.out.println("Date of Birth:");
+		String Birthday=scan.next();
+		people.add(new Man(Name,Age,Birthday));
+		WWLists.clearconsole(9);
+		numberOfElements++;
+		if(this.isFill!=true) this.isFill=true;
+	}
+	
+	public void deleteElement()
+	{
+		if(this.isFill!=true) System.out.println("List is not filled. At first fill the list.");
+		else
+		{
+		numberOfElements--;
+	    people.remove(activeElementInList);  
+	    if(people.size()==0) this.isFill=false;
+		}
+	}
+	
+	public void changeElement(Scanner scan)
+	{
+		if(this.isFill!=true) System.out.println("List is not filled. At first fill the list.");
+		else
+		{
+		System.out.println("Enter new name:");
+		String Name=scan.next();
+		System.out.println("Enter new age:");
+		int Age=scan.nextInt();
+		System.out.println("Enter new date of Birth:");
+		String Birthday=scan.next();
+		Man temp =new Man(Name,Age,Birthday);
+		people.set(activeElementInList, temp);
+		}
+	}
+	
+	
+	
+	
+}
